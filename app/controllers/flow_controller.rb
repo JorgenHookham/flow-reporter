@@ -1,0 +1,2 @@
+class FlowController < ApplicationController
+end
