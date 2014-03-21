@@ -6,6 +6,8 @@ ReporterFlow::Application.routes.draw do
   get 'dropbox/authorize' => 'dropbox#authorize'
   get 'dropbox/authorize/callback' => 'dropbox#authorize_callback'
   get 'dropbox/list-files' => 'dropbox#list_files'
+  get 'dropbox/list-snapshots' => 'dropbox#list_snapshots'
+  get 'dropbox/list-responses' => 'dropbox#list_responses'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

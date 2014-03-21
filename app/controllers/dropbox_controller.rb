@@ -40,13 +40,44 @@ class DropboxController < ApplicationController
     end
   end
 
-  def list_files
+  def get_files
     client = DropboxClient.new(session[:access_token])
-    @files = []
-    for file in client.metadata('/Apps/Reporter-App')["contents"]
-      reporter_file = { "path" => file["path"] }
-      reporter_file["contents"], meta = client.get_file_and_metadata(file["path"])
-      @files << reporter_file
+    files = []
+    for file_meta in client.metadata('/Apps/Reporter-App')["contents"]
+      files << client.get_file(file_meta["path"])
     end
+    return files
+  end
+
+  def get_snapshots
+    snapshots = []
+    for file in get_files()
+      for snapshot in JSON.parse(file)["snapshots"]
+        snapshots << snapshot
+      end
+    end
+    return snapshots
+  end
+
+  def get_responses
+    responses = []
+    for snapshot in get_snapshots()
+      for response in snapshot["responses"]
+        responses << response
+      end
+    end
+    return responses
+  end
+
+  def list_files
+    @files = get_files()
+  end
+
+  def list_snapshots
+    @snapshots = get_snapshots()
+  end
+
+  def list_responses
+    @responses = get_responses()
   end
 end
