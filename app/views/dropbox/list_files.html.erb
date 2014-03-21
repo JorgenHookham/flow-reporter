@@ -1,5 +1,8 @@
 <ul>
-  <% for file in @reporter_app["contents"] %>
-    <li><%= file["path"] %></li>
+  <% for file in @files %>
+    <li>
+      <%= file["path"] %>
+      <pre><%= file["contents"] %></pre>
+    </li>
   <% end %>
 </ul>

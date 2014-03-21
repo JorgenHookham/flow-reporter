@@ -42,6 +42,11 @@ class DropboxController < ApplicationController
 
   def list_files
     client = DropboxClient.new(session[:access_token])
-    @reporter_app = client.metadata('/Apps/Reporter-App')
+    @files = []
+    for file in client.metadata('/Apps/Reporter-App')["contents"]
+      reporter_file = { "path" => file["path"] }
+      reporter_file["contents"], meta = client.get_file_and_metadata(file["path"])
+      @files << reporter_file
+    end
   end
 end
