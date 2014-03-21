@@ -1,0 +1,35 @@
+// Place all the styles related to the flow controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+html {
+  height: 100%;
+  background-image: url(<%= asset_path 'flow.svg' %>);
+  background-size: cover;
+  background-position: center center;
+}
+
+.nodes {
+  position: absolute;
+  top: 2em; right: 2em; bottom: 2em; left: 2em;
+}
+
+.node {
+  position: absolute;
+
+  width: 2em;
+  height: 2em;
+
+  background: white;
+  border-radius: 50%;
+}
+
+@for $i from 1 through 10 {
+  .node[data-skill="#{$i}"] {
+    left: $i/10*100%;
+    margin-left: -1em;
+  }
+  .node[data-challenge="#{$i}"] {
+    bottom: $i/10*100%;
+    margin-bottom: -1em;
+  }
+}

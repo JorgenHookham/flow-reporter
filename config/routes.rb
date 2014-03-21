@@ -1,5 +1,6 @@
 ReporterFlow::Application.routes.draw do
   root 'setup#index'
+  get 'flow/' => 'flow#index'
   get 'dropbox' => 'dropbox#index'
   get 'dropbox/connect' => 'dropbox#connect'
   get 'dropbox/reporter' => 'dropbox#reporter'
@@ -8,6 +9,7 @@ ReporterFlow::Application.routes.draw do
   get 'dropbox/list-files' => 'dropbox#list_files'
   get 'dropbox/list-snapshots' => 'dropbox#list_snapshots'
   get 'dropbox/list-responses' => 'dropbox#list_responses'
+  get 'dropbox/list-flow-responses' => 'dropbox#list_flow_responses'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

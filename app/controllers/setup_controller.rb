@@ -5,7 +5,7 @@ class SetupController < ApplicationController
     elsif !session[:reporter]
       redirect_to url_for :action => 'reporter', :controller => 'dropbox'
     else
-      redirect_to url_for :controller => 'dropbox'
+      redirect_to url_for :controller => 'flow'
     end
   end
 end

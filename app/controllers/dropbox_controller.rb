@@ -69,6 +69,25 @@ class DropboxController < ApplicationController
     return responses
   end
 
+  def get_flow_responses
+    responses = []
+    for snapshot in get_snapshots()
+      flow_response = {}
+      for response in snapshot["responses"]
+        if response["questionPrompt"] and response["questionPrompt"].include? "skill"
+            flow_response["skill"] = response
+        end
+        if response["questionPrompt"] and response["questionPrompt"].include? "challeng"
+          flow_response["challenge"] = response
+        end
+      end
+      if flow_response["skill"] and flow_response["challenge"]
+        responses << flow_response
+      end
+    end
+    return responses
+  end
+
   def list_files
     @files = get_files()
   end
@@ -79,5 +98,10 @@ class DropboxController < ApplicationController
 
   def list_responses
     @responses = get_responses()
+  end
+
+  def list_flow_responses
+    responses = get_flow_responses()
+    render json: responses
   end
 end
