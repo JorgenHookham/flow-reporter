@@ -5,7 +5,9 @@ class DropboxController < ApplicationController
   APP_SECRET = 't8tqmjuu7s1bnud'
 
   def index
-    if !session[:access_token] then redirect_to url_for :action => 'connect' end
+    if !session[:access_token]
+      redirect_to url_for :controller => 'setup'
+    end
   end
 
   def get_flow
@@ -27,6 +29,19 @@ class DropboxController < ApplicationController
   def authorize_callback
     flow = get_flow()
     session[:access_token], session[:user_id] = flow.finish(request.GET)
-    redirect_to url_for :controller => 'dropbox'
+    redirect_to url_for :controller => 'setup'
+  end
+
+  def reporter
+    client = DropboxClient.new(session[:access_token])
+    if client.metadata('/Apps/Reporter-App')
+      session[:reporter] = true
+      redirect_to url_for :controller => 'setup'
+    end
+  end
+
+  def list_files
+    client = DropboxClient.new(session[:access_token])
+    @reporter_app = client.metadata('/Apps/Reporter-App')
   end
 end

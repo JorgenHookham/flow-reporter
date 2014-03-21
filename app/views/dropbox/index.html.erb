@@ -1,6 +1,2 @@
 <h1>Dropbox</h1>
-<% if session[:access_token] %>
-  <p>You're in!</p>
-<% else %>
-  <%= link_to "Connect your Dropbox account", :action => 'authorize' %>
-<% end %>
+<%= link_to "List Files", :action => 'list_files' %>
